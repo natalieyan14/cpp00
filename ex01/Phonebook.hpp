@@ -1,29 +1,15 @@
-#ifndef PHONEBOOK_H
-# define PHONEBOOK_H
+#include <string>
+#include "Contact.hpp"
 
-# include "Contact.hpp"
-# include "header.hpp"
-
-class PhoneBook
-{
-  private:
-	Contact Contacts[MaxId];
-
-	std::string GetFirstName(int id);
-
-	std::string GetLastName(int id);
-
-	std::string GetNickname(int id);
-
-  public:
-	void SetContactId(int id, std::string First, std::string Last,
-		std::string Nick, std::string Phone, std::string Secret);
-
-	void IdPrintContact(int id);
-
-	int isContactUsed(int id);
-
-	void ListPhoneBook();
+class PhoneBook {
+	private:
+		Contact contacts[8];
+		int count;
+	public:
+		PhoneBook();
+		~PhoneBook();
+		void set_new_contact(int i);
+		void get_contacts();
+		int get_count();
+		void print_contact(int index);
 };
-
-#endif

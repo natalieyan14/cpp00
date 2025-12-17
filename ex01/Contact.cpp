@@ -1,31 +1,115 @@
 #include "Contact.hpp"
+#include <iostream>
+#include <string>
 
-void Contact::SetContact(std::string First, std::string Last, std::string Nick, std::string Phone, std::string Secret) {
-	FirstName = First;
-	LastName = Last;
-	Nickname = Nick;
-	PhoneNumber = Phone;
-	DarkestSecret = Secret;
-	Initialized = true;
+Contact::Contact()
+{
+	// std::cout<<"Contact created"<<std::endl;
 }
 
-void Contact::PrintContact() {
-	std::cout << (FirstName + "\n" + LastName + "\n" + Nickname + "\n" + PhoneNumber +
-			  "\n" + DarkestSecret + "\n");
+Contact::~Contact()
+{
+	// std::cout<<"Contact Destroyed"<<std::endl;
 }
 
-int Contact::ContactExists() {
-	return (Initialized);
+int	contains_space(std::string str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ' ')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-std::string Contact::GetFirstName() {
-	return (FirstName);
+int	contains_letters(std::string str)
+{
+	for (int i = 0; i < (int)str.size(); i++)
+	{
+		if (!(str[i] >= 'a' && str[i] <= 'z') && !(str[i] >= 'A'
+				&& str[i] <= 'Z'))
+			return (0);
+	}
+	return (1);
 }
 
-std::string Contact::GetLastName() {
-	return (LastName);
+int Contact::set_first_name(std::string first_name)
+{
+	if (first_name.length() == 0 || contains_space(first_name)
+		|| !contains_letters(first_name))
+		return (0);
+	this->first_name = first_name;
+	return (1);
 }
 
-std::string Contact::GetNickname() {
-	return (Nickname);
+int Contact::set_last_name(std::string last_name)
+{
+	if (last_name.length() == 0 || contains_space(last_name)
+		|| !contains_letters(last_name))
+		return (0);
+	this->last_name = last_name;
+	return (1);
+}
+
+int Contact::set_nickname(std::string nickname)
+{
+	if (nickname.length() == 0 || contains_space(nickname))
+		return (0);
+	this->nickname = nickname;
+	return (1);
+}
+
+int Contact::set_phone_number(std::string phone_number)
+{
+	int	i;
+
+	if (phone_number.length() == 0)
+		return (0);
+	i = 0;
+	while (phone_number[i])
+	{
+		if (!((phone_number[i] >= '0' && phone_number[i] <= '9')
+				|| phone_number[i] == '+'))
+			return (0);
+		i++;
+	}
+	this->phone_number = phone_number;
+	return (1);
+}
+
+int Contact::set_darkest_secret(std::string darkest_secret)
+{
+	if (darkest_secret.length() == 0)
+		return (0);
+	this->darkest_secret = darkest_secret;
+	return (1);
+}
+
+std::string Contact::get_first_name()
+{
+	return (this->first_name);
+}
+
+std::string Contact::get_last_name()
+{
+	return this->last_name;
+}
+
+std::string Contact::get_nickname()
+{
+	return this->nickname;
+}
+
+std::string Contact::get_phone_number()
+{
+	return this->phone_number;
+}
+
+std::string Contact::get_darkest_secret()
+{
+	return this->darkest_secret;
 }

@@ -7,12 +7,11 @@
 
 void Account::_displayTimestamp(void)
 {
-	std::time_t t = std::time(0);
-	std::tm *timeInfo = std::localtime(&t);
-	std::cout << "[" << (1900
-		+ timeInfo->tm_year) << std::setw(2) << std::setfill('0') << (1
-		+ timeInfo->tm_mon) << std::setw(2) << std::setfill('0') << timeInfo->tm_mday << "_" << std::setw(2) << std::setfill('0') << timeInfo->tm_hour << std::setw(2) << std::setfill('0') << timeInfo->tm_min << std::setw(2) << std::setfill('0') << timeInfo->tm_sec;
-	std::cout << "]";
+	time_t now = time(NULL);
+	struct tm *lt = localtime(&now);
+	char buffer[20];
+	strftime(buffer, sizeof(buffer), "[%Y%m%d_%H%M%S] ", lt);
+	std::cout << buffer;
 }
 
 int Account::_nbAccounts = 0;

@@ -1,118 +1,55 @@
-#include "header.hpp"
+#include "PhoneBook.hpp"
+#include "Contact.hpp"
+#include <iostream>
+#include <string>
 
-int	main(void)
+int main(void)
 {
-	std::cout << "Welcome to your phonebook!\n";
-	sleep(2);
-	std::system("clear");
-	std::cout << "Loading...\n";
-	sleep(1);
-	std::system("clear");
-	PhoneBook Book;
-	int id = 0;
+	PhoneBook phonebook;
+	int i = 0;
 
 	while (1)
 	{
-		std::cout << "\nPlease input...\n";
-		std::string input;
-		std::cin >> input;
-		std::system("clear");
-		if (input == "ADD")
+		std::string command;
+		std::cout<<"Enter the command: ";
+		std::getline(std::cin, command);
+		if (std::cin.eof())
+			exit(0);
+		if (command == "ADD")
 		{
-			while (Book.isContactUsed(id))
-			{
-				if (id == MaxId - 1)
-				{
-					id = 0;
-					break ;
-				}
-				id++;
-			}
-
-			std::string First;
-			std::string Last;
-			std::string Nick;
-			std::string Phone;
-			std::string Secret;
-
-			std::system("clear");
-			std::cout << "First Name: ";
-			std::cin.ignore();
-			while (First.empty())
-			{
-				std::getline(std::cin, First);
-				if (First.empty())
-				{
-					std::cout << "You can't have an empty first name. Try again...\n";
-					std::cout << "Please input your first name: ";
-				}
-			}
-			std::cout << "\nLast Name: ";
-			while (Last.empty())
-			{
-				std::getline(std::cin, Last);
-				if (Last.empty())
-				{
-					std::cout << "You can't have an empty last name. Try again...\n";
-					std::cout << "Please input your last name: ";
-				}
-			}
-			std::cout << "\nNick Name: ";
-			while (Nick.empty())
-			{
-				std::getline(std::cin, Nick);
-				if (Nick.empty())
-				{
-					std::cout << "You can't have an empty nick name. Try again...\n";
-					std::cout << "Please input your nick name: ";
-				}
-			}
-			std::cout << "\nPhone Number: ";
-			while (Phone.empty())
-			{
-				std::getline(std::cin, Phone);
-				if (Phone.empty())
-				{
-					std::cout << "You can't have an empty phone number. Try again...\n";
-					std::cout << "Please input your phone number: ";
-				}
-			}
-
-			std::cout << "\nDarkest Secret: ";
-			while (Secret.empty())
-			{
-				std::getline(std::cin, Secret);
-				if (Secret.empty())
-				{
-					std::cout << "You can't have an empty darkest secret. Try again...\n";
-					std::cout << "Please input your darkest secret: ";
-				}
-			}
-			Book.SetContactId(id, First, Last, Nick, Phone, Secret);
+			if (i == 7)
+				i = 0;
+			phonebook.set_new_contact(i);
+			i++;
 		}
-		else if (input == "SEARCH")
+		else if (command == "SEARCH")
 		{
-			std::system("clear");
-			Book.ListPhoneBook();
-			std::cout << "\nType id for full informations: ";
-			std::string input;
-			std::cin >> input;
-			const char *input2 = input.c_str();
-			int id = atoi(input2);
-			if ((id == 0 && input2[0] != '0' && input2[1] == 0) || id < 0
-				|| id > 10 || !Book.isContactUsed(id))
+			if (phonebook.get_count() == 0)
 			{
-				std::cout << "Invalid ID";
-				sleep(1);
-				std::system("clear");
+				std::cout<<"You don't have any contacts!!"<<std::endl;
 				continue ;
 			}
-			std::system("clear");
-			Book.IdPrintContact(id);
+			phonebook.get_contacts();
+			std::string index_str;
+			while (1)
+			{
+				std::cout<<"Enter the index: ";
+				std::getline(std::cin, index_str);
+				if (std::cin.eof())
+					exit(0);
+				if (index_str.length() != 1 || index_str[0] <= '0' || index_str[0] - '0' > phonebook.get_count())
+				{
+					std::cout<<"Invalid input!!"<<std::endl;
+					continue ;
+				}
+				phonebook.print_contact(index_str[0] - '0');
+				break ;
+			}
 		}
-		else if (input == "EXIT")
-		{
-			return (0);
-		}
+		else if (command == "EXIT")
+			break ;
+		else
+			std::cout<<"Invalid input!!"<<std::endl;
+
 	}
 }
