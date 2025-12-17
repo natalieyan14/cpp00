@@ -4,15 +4,13 @@
 
 Contact::Contact()
 {
-	// std::cout<<"Contact created"<<std::endl;
 }
 
 Contact::~Contact()
 {
-	// std::cout<<"Contact Destroyed"<<std::endl;
 }
 
-int	contains_space(std::string str)
+int	isspace(std::string str)
 {
 	int	i;
 
@@ -26,7 +24,7 @@ int	contains_space(std::string str)
 	return (0);
 }
 
-int	contains_letters(std::string str)
+int	isletters(std::string str)
 {
 	for (int i = 0; i < (int)str.size(); i++)
 	{
@@ -39,8 +37,8 @@ int	contains_letters(std::string str)
 
 int Contact::set_first_name(std::string first_name)
 {
-	if (first_name.length() == 0 || contains_space(first_name)
-		|| !contains_letters(first_name))
+	if (first_name.length() == 0 || isspace(first_name)
+		|| !isletters(first_name))
 		return (0);
 	this->first_name = first_name;
 	return (1);
@@ -48,8 +46,7 @@ int Contact::set_first_name(std::string first_name)
 
 int Contact::set_last_name(std::string last_name)
 {
-	if (last_name.length() == 0 || contains_space(last_name)
-		|| !contains_letters(last_name))
+	if (last_name.length() == 0 || isspace(last_name) || !isletters(last_name))
 		return (0);
 	this->last_name = last_name;
 	return (1);
@@ -57,7 +54,7 @@ int Contact::set_last_name(std::string last_name)
 
 int Contact::set_nickname(std::string nickname)
 {
-	if (nickname.length() == 0 || contains_space(nickname))
+	if (nickname.length() == 0 || isspace(nickname))
 		return (0);
 	this->nickname = nickname;
 	return (1);
@@ -96,20 +93,20 @@ std::string Contact::get_first_name()
 
 std::string Contact::get_last_name()
 {
-	return this->last_name;
+	return (this->last_name);
 }
 
 std::string Contact::get_nickname()
 {
-	return this->nickname;
+	return (this->nickname);
 }
 
 std::string Contact::get_phone_number()
 {
-	return this->phone_number;
+	return (this->phone_number);
 }
 
 std::string Contact::get_darkest_secret()
 {
-	return this->darkest_secret;
+	return (this->darkest_secret);
 }

@@ -62,7 +62,7 @@ void PhoneBook::set_new_contact(int i)
 		if (this->contacts[i].set_darkest_secret(secret))
 			break ;
 	}
-	if (this->count  8)
+	if (this->count < 8)
 		this->count++;
 }
 
@@ -79,26 +79,36 @@ void	print(std::string str)
 		std::cout << str;
 }
 
-void PhoneBook::get_contacts()
+int PhoneBook::get_contacts()
 {
-	int	j;
+	int j;
 
-	j = 0;
+	this->last_display_count = 0;
+	for (j = 0; j < 8; ++j)
+		this->last_display_map[j] = -1;
+
 	std::cout << "------------------------------------------" << std::endl;
 	std::cout << "|  Index|First name| Last name|  Nickname|" << std::endl;
 	std::cout << "------------------------------------------" << std::endl;
-	while (j < this->count)
+	int displayed = 0;
+	for (j = 0; j < 8; ++j)
 	{
-		std::cout << "|      " << j + 1 << "|";
-		print(this->contacts[j].get_first_name());
+		std::string fn = this->contacts[j].get_first_name();
+		if (fn.length() == 0)
+			continue;
+		this->last_display_map[displayed] = j;
+		++displayed;
+		std::cout << "|      " << displayed << "|";
+		print(fn);
 		std::cout << "|";
 		print(this->contacts[j].get_last_name());
 		std::cout << "|";
 		print(this->contacts[j].get_nickname());
 		std::cout << "|";
-		j++;
 		std::cout << std::endl;
 	}
+	this->last_display_count = displayed;
+	return this->last_display_count;
 }
 
 int PhoneBook::get_count()
@@ -118,4 +128,20 @@ void PhoneBook::print_contact(int index)
 		- 1].get_phone_number() << std::endl;
 	std::cout << "Darkest secret: " << this->contacts[index
 		- 1].get_darkest_secret() << std::endl;
+}
+
+void PhoneBook::print_contact_by_display_index(int display_index)
+{
+	if (display_index < 1 || display_index > this->last_display_count)
+	{
+		std::cout << "Invalid index\n";
+		return;
+	}
+	int arr_idx = this->last_display_map[display_index - 1];
+	if (arr_idx < 0 || arr_idx >= 8)
+	{
+		std::cout << "Invalid index\n";
+		return;
+	}
+	print_contact(arr_idx + 1);
 }

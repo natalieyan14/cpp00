@@ -27,4 +27,4 @@ class Contact
 	std::string get_darkest_secret();
 };
 
-#endif
+#endif 
