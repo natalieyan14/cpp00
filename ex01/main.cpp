@@ -11,7 +11,8 @@ int	main(void)
 	while (1)
 	{
 		std::string command;
-		std::cout << "Enter the command: ";
+		std::cout << "Enter one of this following commands: ADD, SEARCH,
+			EXIT" << std::endl;
 		std::getline(std::cin, command);
 		if (std::cin.eof())
 			exit(0);
@@ -35,10 +36,10 @@ int	main(void)
 				std::getline(std::cin, index_str);
 				if (std::cin.eof())
 					exit(0);
-				if (index_str.length() != 1 || index_str[0] <= '0'
-					|| index_str[0] - '0' > displayed)
+				if (index_str.length() != 1 || index_str[0] < '1'
+					|| index_str[0] > ('0' + displayed))
 				{
-					std::cout << "Invalid input!!" << std::endl;
+					std::cout << "Invalid index. Please enter a number between 1 and " << displayed << "." << std::endl;
 					continue ;
 				}
 				phonebook.print_contact_by_display_index(index_str[0] - '0');
@@ -48,6 +49,6 @@ int	main(void)
 		else if (command == "EXIT")
 			break ;
 		else
-			std::cout << "Invalid input!!" << std::endl;
+			std::cout << "Invalid input! " << command << std::endl;
 	}
 }

@@ -1,5 +1,8 @@
-#include "Contact.hpp"
-#include <string>
+#pragma once
+
+# include "Contact.hpp"
+# include <string>
+# include <cstdlib>
 
 class PhoneBook
 {

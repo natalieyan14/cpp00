@@ -4,6 +4,9 @@
 PhoneBook::PhoneBook()
 {
 	this->count = 0;
+	this->last_display_count = 0;
+	for (int i = 0; i < 8; ++i)
+		this->last_display_map[i] = -1;
 }
 
 PhoneBook::~PhoneBook()

@@ -39,7 +39,10 @@ int Contact::set_first_name(std::string first_name)
 {
 	if (first_name.length() == 0 || isspace(first_name)
 		|| !isletters(first_name))
+	{
+		std::cout << "First name must contain only letters!" << std::endl;
 		return (0);
+	}
 	this->first_name = first_name;
 	return (1);
 }
@@ -47,7 +50,10 @@ int Contact::set_first_name(std::string first_name)
 int Contact::set_last_name(std::string last_name)
 {
 	if (last_name.length() == 0 || isspace(last_name) || !isletters(last_name))
+	{
+		std::cout << "Last name must contain only letters!" << std::endl;
 		return (0);
+	}
 	this->last_name = last_name;
 	return (1);
 }
@@ -55,7 +61,10 @@ int Contact::set_last_name(std::string last_name)
 int Contact::set_nickname(std::string nickname)
 {
 	if (nickname.length() == 0 || isspace(nickname))
+	{
+		std::cout << "Nickname must contain only letters!" << std::endl;
 		return (0);
+	}
 	this->nickname = nickname;
 	return (1);
 }
@@ -65,13 +74,19 @@ int Contact::set_phone_number(std::string phone_number)
 	int	i;
 
 	if (phone_number.length() == 0)
+	{
+		std::cout << "Phone number must contain only digits or '+'!" << std::endl;
 		return (0);
+	}
 	i = 0;
 	while (phone_number[i])
 	{
 		if (!((phone_number[i] >= '0' && phone_number[i] <= '9')
 				|| phone_number[i] == '+'))
+		{
+			std::cout << "Phone number must contain only digits or '+'!" << std::endl;
 			return (0);
+		}
 		i++;
 	}
 	this->phone_number = phone_number;
